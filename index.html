@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Holdout — research-integrity toolchain for quant research &amp; AI agents</title>
+<meta name="description" content="Holdout is an open-source (MIT) toolchain that makes self-deception structurally impossible in quantitative research and AI research agents: data immunity, PIT adjustment, look-ahead verification, fail-closed backtest gates, hash-chained pre-registration ledgers, and AI governance.">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; line-height: 1.6; color: #1f2328; background: #fff; }
+  @media (prefers-color-scheme: dark) { body { color: #e6edf3; background: #0d1117; } }
+  header { padding: 3.5rem 1.5rem 2rem; text-align: center; border-bottom: 1px solid #d0d7de; }
+  @media (prefers-color-scheme: dark) { header { border-bottom-color: #30363d; } }
+  h1 { margin: 0 0 .5rem; font-size: 2.2rem; letter-spacing: -.02em; }
+  .tagline { max-width: 640px; margin: 0 auto 1rem; font-size: 1.05rem; color: #57606a; }
+  @media (prefers-color-scheme: dark) { .tagline { color: #8b949e; } }
+  .zh { max-width: 640px; margin: 0 auto; font-size: .95rem; color: #6e7781; }
+  @media (prefers-color-scheme: dark) { .zh { color: #8b949e; } }
+  .badges { margin-top: 1.2rem; }
+  .badges img { height: 20px; margin: 2px; }
+  main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 .75rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .card { border: 1px solid #d0d7de; border-radius: 10px; padding: 1rem 1.1rem; display: flex; flex-direction: column; }
+  @media (prefers-color-scheme: dark) { .card { border-color: #30363d; } }
+  .card h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
+  .card .cli { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .8rem; color: #57606a; }
+  @media (prefers-color-scheme: dark) { .card .cli { color: #8b949e; } }
+  .card p { margin: .4rem 0 .6rem; font-size: .9rem; flex: 1; }
+  .card .links a { margin-right: .9rem; font-size: .88rem; }
+  pre { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; padding: .9rem 1.1rem; overflow-x: auto; font-size: .88rem; }
+  @media (prefers-color-scheme: dark) { pre { background: #161b22; border-color: #30363d; } }
+  footer { text-align: center; padding: 2rem 1rem 3rem; color: #6e7781; font-size: .85rem; border-top: 1px solid #d0d7de; }
+  @media (prefers-color-scheme: dark) { footer { color: #8b949e; border-top-color: #30363d; } }
+  a { color: #0969da; text-decoration: none; }
+  @media (prefers-color-scheme: dark) { a { color: #4493f8; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Holdout</h1>
+  <p class="tagline">An open-source toolchain that makes self-deception structurally impossible in quantitative research — for humans and AI research agents.</p>
+  <p class="zh">让量化研究者与金融 AI 智能体无法自欺：每个结论都必须携带证据、通过门禁、留下防篡改审计痕迹，否则不许发布。MIT 开源，全部可 pip 安装。</p>
+  <div class="badges">
+    <img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue">
+    <img alt="awesome-quant" src="https://img.shields.io/badge/awesome--quant-listed-1f6feb">
+    <img alt="PyPI" src="https://img.shields.io/pypi/v/falsification-ledger">
+  </div>
+</header>
+<main>
+  <h2>One gate chain, seven tools</h2>
+  <pre>data → adjust → timing → backtest → falsify → review → publish
+  │       │         │         │         │        │
+  └───────┴─────────┴─────────┴─────────┴────────┴── AI governance (cross-cutting)</pre>
+  <p>Every artifact — a human conclusion, an AI-generated strategy claim, a piece of public copy — walks the same chain and answers the same question: <em>can this be published, and if not, what is missing?</em> All tools output machine-readable JSON + exit codes, are fail-closed by default, and can be called by agents and CI.</p>
+
+  <h2>The toolchain</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>falsification-ledger</h3>
+      <div class="cli">fl · pip install falsification-ledger</div>
+      <p>Hash-chained, append-only pre-registration ledger: write down your claim and the evidence that would kill it <em>before</em> seeing the data, then measure hit rate vs. a random baseline (Wilson 95% CI). Featured in awesome-quant.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/falsification-ledger">GitHub</a><a href="https://pypi.org/project/falsification-ledger/">PyPI</a></div>
+    </div>
+    <div class="card">
+      <h3>ashare-data-immunity</h3>
+      <div class="cli">imm · pip install ashare-data-immunity</div>
+      <p>A-share daily-bar data immunity: cleaning, board-aware price limits (ST date-aware), suspensions, delisting/survivorship audits, SHA-256 snapshots and evidence-tracked repair.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/ashare-data-immunity">GitHub</a><a href="https://pypi.org/project/ashare-data-immunity/">PyPI</a></div>
+    </div>
+    <div class="card">
+      <h3>pit-adjuster</h3>
+      <div class="cli">padj · pip install pit-adjuster</div>
+      <p>Point-in-time fixed-basis back-adjustment for A-share prices: corporate-action factor chains, convention-drift detection, snapshot-equivalence gates.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/pit-adjuster">GitHub</a><a href="https://pypi.org/project/pit-adjuster/">PyPI</a></div>
+    </div>
+    <div class="card">
+      <h3>lookahead-free</h3>
+      <div class="cli">lf · pip install lookahead-free</div>
+      <p>Verifiable look-ahead freedom for the value-independent fragment of data pipelines, with a heuristic companion scanner for research code.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/lookahead-free">GitHub</a><a href="https://pypi.org/project/lookahead-free/">PyPI</a></div>
+    </div>
+    <div class="card">
+      <h3>factor-qc</h3>
+      <div class="cli">qc · pip install factor-qc</div>
+      <p>Fail-closed quality gate for backtests and factor evidence: DSR / PBO / haircut / MinTRL, plus a probability-calibration companion gate. Refuses to judge without an honest n_trials.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/factor-qc">GitHub</a><a href="https://pypi.org/project/factor-qc/">PyPI</a></div>
+    </div>
+    <div class="card">
+      <h3>lesson-book</h3>
+      <div class="cli">lb · pip install lesson-book</div>
+      <p>Local-first, deterministic tuition memory for traders: pattern-matched reminders, no LLM, overridable rule tables.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/lesson-book">GitHub</a><a href="https://pypi.org/project/lesson-book/">PyPI</a></div>
+    </div>
+    <div class="card">
+      <h3>holdout-governance</h3>
+      <div class="cli">gov · pip install holdout-governance</div>
+      <p>Fail-closed governance for AI research artifacts: policy.yml + artifact.json, one check before anything ships. Ships as CLI, reusable GitHub Action, pre-commit hook and MCP server. Glama A-grade.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/holdout-governance">GitHub</a><a href="https://pypi.org/project/holdout-governance/">PyPI</a></div>
+    </div>
+  </div>
+
+  <h2>Tooling</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>pypi-verify-action</h3>
+      <div class="cli">uses: holdout-labs/pypi-verify-action@v1</div>
+      <p>GitHub Action that verifies a freshly published PyPI release end-to-end: wait for propagation, clean-venv install, version assert, file checks, smoke commands. Fail-closed.</p>
+      <div class="links"><a href="https://github.com/holdout-labs/pypi-verify-action">GitHub</a></div>
+    </div>
+    <div class="card">
+      <h3>workspace-metabolism</h3>
+      <div class="cli">wm · sister project (metabolism-tools)</div>
+      <p>Policy-driven governance for what AI coding agents leave in your workspace: one metabolism.json policy file, audit, recyclable clean, rollback, hash-chained audit trail. MCP server included.</p>
+      <div class="links"><a href="https://github.com/metabolism-tools/workspace-metabolism">GitHub</a><a href="https://pypi.org/project/workspace-metabolism/">PyPI</a></div>
+    </div>
+  </div>
+
+  <h2>Try it in 60 seconds</h2>
+  <pre>pip install falsification-ledger
+fl demo</pre>
+  <p><code>fl demo</code> runs the whole loop on a scratch ledger — pre-register, evidence, verdict, hit rate — then tampers with one field so you can watch <code>fl verify</code> catch it at a specific line number.</p>
+
+  <h2>Philosophy</h2>
+  <p>Feynman's first principle: <em>"You must not fool yourself — and you are the easiest person to fool."</em> The statistics literature (deflated Sharpe, PBO, multiple-testing corrections) attacks the <em>math</em> of self-deception. Holdout attacks the <em>process</em>: pre-registration, fail-closed gates, and tamper-evident audit trails make honesty cheaper than rationalization. Named after the holdout — the data you don't touch until the end, and the juror who won't go along until the evidence is in.</p>
+
+  <h2>Install everything</h2>
+  <pre>pip install falsification-ledger pit-adjuster factor-qc lookahead-free ashare-data-immunity lesson-book holdout-governance</pre>
+  <p>All MIT-licensed. No investment advice, no trade execution, no return promises — only evidence and gates.</p>
+</main>
+<footer>
+  <a href="https://github.com/holdout-labs">github.com/holdout-labs</a> · 7 MIT-licensed tools · Python 3.11+<br>
+  Sister org: <a href="https://github.com/metabolism-tools">metabolism-tools</a> (workspace-metabolism)<br>
+  <span style="opacity:.7">Research &amp; engineering infrastructure — not investment advice.</span>
+</footer>
+</body>
+</html>
