@@ -3,144 +3,233 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Holdout — research-integrity toolchain for quant research &amp; AI agents</title>
-<meta name="description" content="Holdout is an open-source (MIT) toolchain that makes self-deception structurally impossible in quantitative research and AI research agents: data immunity, PIT adjustment, look-ahead verification, fail-closed backtest gates, hash-chained pre-registration ledgers, and AI governance.">
+<title>Holdout Labs — research-integrity toolchain for quant research &amp; AI agents</title>
+<meta name="description" content="Holdout Labs (holdout-labs) is an open-source (MIT) toolchain that makes self-deception structurally impossible in quantitative research and AI research agents: data immunity, PIT adjustment, look-ahead verification, fail-closed backtest gates, hash-chained pre-registration ledgers, and AI governance. 6 of 7 tools listed in awesome-quant.">
 <style>
-  :root { color-scheme: light dark; }
-  * { box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; line-height: 1.6; color: #1f2328; background: #fff; }
-  @media (prefers-color-scheme: dark) { body { color: #e6edf3; background: #0d1117; } }
-  header { padding: 3.5rem 1.5rem 2rem; text-align: center; border-bottom: 1px solid #d0d7de; }
-  @media (prefers-color-scheme: dark) { header { border-bottom-color: #30363d; } }
-  h1 { margin: 0 0 .5rem; font-size: 2.2rem; letter-spacing: -.02em; }
-  .tagline { max-width: 640px; margin: 0 auto 1rem; font-size: 1.05rem; color: #57606a; }
-  @media (prefers-color-scheme: dark) { .tagline { color: #8b949e; } }
-  .zh { max-width: 640px; margin: 0 auto; font-size: .95rem; color: #6e7781; }
-  @media (prefers-color-scheme: dark) { .zh { color: #8b949e; } }
-  .badges { margin-top: 1.2rem; }
-  .badges img { height: 20px; margin: 2px; }
-  main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
-  h2 { font-size: 1.3rem; margin: 2rem 0 .75rem; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
-  .card { border: 1px solid #d0d7de; border-radius: 10px; padding: 1rem 1.1rem; display: flex; flex-direction: column; }
-  @media (prefers-color-scheme: dark) { .card { border-color: #30363d; } }
-  .card h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
-  .card .cli { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .8rem; color: #57606a; }
-  @media (prefers-color-scheme: dark) { .card .cli { color: #8b949e; } }
-  .card p { margin: .4rem 0 .6rem; font-size: .9rem; flex: 1; }
-  .card .links a { margin-right: .9rem; font-size: .88rem; }
-  pre { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; padding: .9rem 1.1rem; overflow-x: auto; font-size: .88rem; }
-  @media (prefers-color-scheme: dark) { pre { background: #161b22; border-color: #30363d; } }
-  .recognition { margin: 1.4rem auto 0; max-width: 720px; padding: .6rem 1rem; border: 1px solid #d4a72c; border-radius: 8px; background: #fff8e1; font-size: .95rem; }
-  @media (prefers-color-scheme: dark) { .recognition { border-color: #9e8a3a; background: #2d2817; } }
-  .recognition a { font-weight: 600; }
-  footer { text-align: center; padding: 2rem 1rem 3rem; color: #6e7781; font-size: .85rem; border-top: 1px solid #d0d7de; }
-  @media (prefers-color-scheme: dark) { footer { color: #8b949e; border-top-color: #30363d; } }
-  a { color: #0969da; text-decoration: none; }
-  @media (prefers-color-scheme: dark) { a { color: #4493f8; } }
+  :root {
+    --bg: #f7f8fa; --fg: #1a2332; --muted: #5b6b7f; --card: #ffffff;
+    --line: #e3e8ef; --accent: #3457d5; --accent2: #7c3aed;
+    --gold: #b7791f; --gold-bg: #fff7e0; --gold-line: #eac97e;
+    --ok: #15803d; --ok-bg: #eefaf1;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1220; --fg: #e8eef7; --muted: #93a3b8; --card: #111a2c;
+      --line: #22304a; --accent: #6d8dff; --accent2: #a78bfa;
+      --gold: #e3b341; --gold-bg: #241f0e; --gold-line: #5a4a1d;
+      --ok: #4ade80; --ok-bg: #0e2617;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--fg); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---------- nav ---------- */
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line); }
+  .nav-inner { max-width: 1080px; margin: 0 auto; padding: .8rem 1.5rem; display: flex; align-items: center; gap: 1.2rem; }
+  .logo { display: flex; align-items: center; gap: .6rem; font-weight: 700; font-size: 1.05rem; color: var(--fg); }
+  .logo-mark { width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: grid; place-items: center; font-size: 15px; }
+  nav .links { margin-left: auto; display: flex; gap: 1.1rem; font-size: .92rem; }
+  nav .links a { color: var(--muted); }
+  nav .links a:hover { color: var(--fg); text-decoration: none; }
+
+  /* ---------- hero ---------- */
+  .hero { text-align: center; padding: 4rem 1.5rem 2.4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background:
+      radial-gradient(600px 260px at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent),
+      radial-gradient(600px 260px at 85% 10%, color-mix(in srgb, var(--accent2) 12%, transparent), transparent); pointer-events: none; }
+  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); letter-spacing: -.03em; margin-bottom: .4rem; }
+  .hero h1 .labs { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .tagline { max-width: 700px; margin: .6rem auto 0; font-size: 1.08rem; color: var(--muted); }
+  .hero .zh { max-width: 700px; margin: .7rem auto 0; font-size: .95rem; color: var(--muted); opacity: .9; }
+  .badges { margin-top: 1.3rem; display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; }
+  .badges img { height: 22px; border-radius: 4px; }
+
+  .recognition { margin: 1.6rem auto 0; max-width: 780px; display: flex; gap: .8rem; align-items: flex-start; text-align: left;
+    background: var(--gold-bg); border: 1px solid var(--gold-line); color: var(--gold); padding: .9rem 1.2rem; border-radius: 12px; font-size: .98rem; }
+  .recognition .star { font-size: 1.15rem; line-height: 1.3; }
+  .recognition b { color: var(--gold); }
+  .recognition a { color: var(--gold); font-weight: 600; }
+  .recognition .tools { margin-top: .15rem; font-size: .9rem; opacity: .95; }
+
+  /* ---------- layout ---------- */
+  main { max-width: 1080px; margin: 0 auto; padding: 1.6rem 1.5rem 3.5rem; }
+  section { margin-top: 3rem; }
+  h2 { font-size: 1.35rem; letter-spacing: -.01em; display: flex; align-items: center; gap: .55rem; margin-bottom: 1.1rem; }
+  h2 .no { font-size: .82rem; font-weight: 700; color: var(--accent); border: 1px solid var(--line); padding: .12rem .5rem; border-radius: 999px; }
+  .lead { color: var(--muted); max-width: 860px; }
+
+  /* pipeline */
+  .pipeline { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.4rem; font-family: var(--mono); font-size: .88rem; overflow-x: auto; box-shadow: 0 1px 3px rgb(0 0 0 / .04); }
+  .pipeline .stage { color: var(--accent); font-weight: 600; }
+  .pipeline .cross { color: var(--accent2); }
+
+  /* grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(315px, 1fr)); gap: 1.1rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.25rem 1.35rem; display: flex; flex-direction: column; gap: .55rem; box-shadow: 0 1px 3px rgb(0 0 0 / .04); transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgb(0 0 0 / .08); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .card .head { display: flex; align-items: center; gap: .7rem; }
+  .card .ico { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--card)), color-mix(in srgb, var(--accent2) 16%, var(--card))); display: grid; place-items: center; font-size: 19px; flex: none; }
+  .card h3 { font-size: 1.06rem; letter-spacing: -.01em; }
+  .card .cli { font-family: var(--mono); font-size: .76rem; color: var(--muted); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: .1rem .5rem; display: inline-block; width: fit-content; }
+  .card p { font-size: .9rem; color: var(--fg); flex: 1; margin: 0; }
+  .card .aql { font-size: .78rem; color: var(--ok); background: var(--ok-bg); border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent); border-radius: 6px; padding: .15rem .55rem; width: fit-content; font-weight: 600; }
+  .card .links { display: flex; gap: 1rem; font-size: .88rem; font-weight: 600; border-top: 1px dashed var(--line); padding-top: .6rem; }
+
+  /* code */
+  pre { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.2rem; font-family: var(--mono); font-size: .87rem; overflow-x: auto; line-height: 1.7; box-shadow: 0 1px 3px rgb(0 0 0 / .04); }
+  pre .c { color: var(--muted); }
+
+  blockquote { border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 10px 10px 0; padding: .9rem 1.2rem; margin: 0; color: var(--muted); font-style: italic; }
+
+  footer { border-top: 1px solid var(--line); margin-top: 3rem; padding: 2.2rem 1.5rem 3rem; text-align: center; color: var(--muted); font-size: .88rem; }
+  footer .f-links { display: flex; gap: 1.4rem; justify-content: center; margin-bottom: .6rem; font-weight: 600; }
 </style>
 </head>
 <body>
-<header>
-  <h1>Holdout</h1>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#"><span class="logo-mark">⛓</span> Holdout Labs</a>
+    <div class="links">
+      <a href="#tools">Tools</a>
+      <a href="#chain">The chain</a>
+      <a href="#try">Try it</a>
+      <a href="https://github.com/holdout-labs" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Holdout <span class="labs">Labs</span></h1>
   <p class="tagline">An open-source toolchain that makes self-deception structurally impossible in quantitative research — for humans and AI research agents.</p>
   <p class="zh">让量化研究者与金融 AI 智能体无法自欺：每个结论都必须携带证据、通过门禁、留下防篡改审计痕迹，否则不许发布。MIT 开源，全部可 pip 安装。</p>
   <div class="badges">
     <img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue">
     <img alt="awesome-quant" src="https://img.shields.io/badge/awesome--quant-6%2F7%20tools-1f6feb">
     <img alt="PyPI" src="https://img.shields.io/pypi/v/falsification-ledger">
+    <img alt="Glama" src="https://img.shields.io/badge/Glama-A%20grade-7c3aed">
   </div>
   <div class="recognition">
-    ⭐ <strong>6 of 7 tools listed in <a href="https://github.com/wilsonfreitas/awesome-quant">awesome-quant</a></strong>
-    — the curated list of quant libraries (~29k stars): falsification-ledger · pit-adjuster · factor-qc ·
-    lookahead-free · ashare-data-immunity · lesson-book (merged 2026-09-06).
+    <span class="star">⭐</span>
+    <div>
+      <b>6 of 7 tools listed in <a href="https://github.com/wilsonfreitas/awesome-quant" target="_blank" rel="noopener">awesome-quant</a></b>
+      — the curated list of quant libraries (~29k stars).
+      <div class="tools">falsification-ledger · pit-adjuster · factor-qc · lookahead-free · ashare-data-immunity · lesson-book&nbsp;— merged 2026-09-06 (PRs #593/#611/#620)</div>
+    </div>
   </div>
 </header>
+
 <main>
-  <h2>One gate chain, seven tools</h2>
-  <pre>data → adjust → timing → backtest → falsify → review → publish
-  │       │         │         │         │        │
-  └───────┴─────────┴─────────┴─────────┴────────┴── AI governance (cross-cutting)</pre>
-  <p>Every artifact — a human conclusion, an AI-generated strategy claim, a piece of public copy — walks the same chain and answers the same question: <em>can this be published, and if not, what is missing?</em> All tools output machine-readable JSON + exit codes, are fail-closed by default, and can be called by agents and CI.</p>
+  <section id="chain">
+    <h2><span class="no">01</span> One gate chain, seven tools</h2>
+    <div class="pipeline">
+      <span class="stage">data</span> → <span class="stage">adjust</span> → <span class="stage">timing</span> → <span class="stage">backtest</span> → <span class="stage">falsify</span> → <span class="stage">review</span> → <span class="stage">publish</span><br>
+      &nbsp;&nbsp;└────────────── <span class="cross">AI governance (cross-cutting)</span> ──────────────┘
+    </div>
+    <p class="lead" style="margin-top:1rem">Every artifact — a human conclusion, an AI-generated strategy claim, a piece of public copy — walks the same chain and answers the same question: <em>can this be published, and if not, what is missing?</em> All tools output machine-readable JSON + exit codes, are fail-closed by default, and can be called by agents and CI.</p>
+  </section>
 
-  <h2>The toolchain</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>falsification-ledger</h3>
-      <div class="cli">fl · pip install falsification-ledger</div>
-      <p>Hash-chained, append-only pre-registration ledger: write down your claim and the evidence that would kill it <em>before</em> seeing the data, then measure hit rate vs. a random baseline (Wilson 95% CI). Featured in awesome-quant.</p>
-      <div class="links"><a href="https://github.com/holdout-labs/falsification-ledger">GitHub</a><a href="https://pypi.org/project/falsification-ledger/">PyPI</a></div>
+  <section id="tools">
+    <h2><span class="no">02</span> The toolchain</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="head"><span class="ico">📜</span><h3>falsification-ledger</h3></div>
+        <span class="cli">fl · pip install falsification-ledger</span>
+        <p>Hash-chained, append-only pre-registration ledger: write down your claim and the evidence that would kill it <em>before</em> seeing the data, then measure hit rate vs. a random baseline (Wilson 95% CI).</p>
+        <span class="aql">✓ in awesome-quant · Trading &amp; Backtesting</span>
+        <div class="links"><a href="https://github.com/holdout-labs/falsification-ledger" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/falsification-ledger/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">🛡️</span><h3>ashare-data-immunity</h3></div>
+        <span class="cli">imm · pip install ashare-data-immunity</span>
+        <p>A-share daily-bar data immunity: cleaning, board-aware price limits (ST date-aware), suspensions, delisting/survivorship audits, SHA-256 snapshots and evidence-tracked repair.</p>
+        <span class="aql">✓ in awesome-quant · Market Data</span>
+        <div class="links"><a href="https://github.com/holdout-labs/ashare-data-immunity" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/ashare-data-immunity/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">🔄</span><h3>pit-adjuster</h3></div>
+        <span class="cli">padj · pip install pit-adjuster</span>
+        <p>Point-in-time fixed-basis back-adjustment for A-share prices: corporate-action factor chains, convention-drift detection, snapshot-equivalence gates.</p>
+        <span class="aql">✓ in awesome-quant · Market Data</span>
+        <div class="links"><a href="https://github.com/holdout-labs/pit-adjuster" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/pit-adjuster/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">⏱️</span><h3>lookahead-free</h3></div>
+        <span class="cli">lf · pip install lookahead-free</span>
+        <p>Verifiable look-ahead freedom for the value-independent fragment of data pipelines, with a heuristic companion scanner for research code.</p>
+        <span class="aql">✓ in awesome-quant · Factor Analysis</span>
+        <div class="links"><a href="https://github.com/holdout-labs/lookahead-free" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/lookahead-free/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">🧪</span><h3>factor-qc</h3></div>
+        <span class="cli">qc · pip install factor-qc</span>
+        <p>Fail-closed quality gate for backtests and factor evidence: DSR / PBO / haircut / MinTRL, plus a probability-calibration companion gate. Refuses to judge without an honest n_trials.</p>
+        <span class="aql">✓ in awesome-quant · Factor Analysis</span>
+        <div class="links"><a href="https://github.com/holdout-labs/factor-qc" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/factor-qc/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">📒</span><h3>lesson-book</h3></div>
+        <span class="cli">lb · pip install lesson-book</span>
+        <p>Local-first, deterministic tuition memory for traders: pattern-matched reminders, no LLM, overridable rule tables.</p>
+        <span class="aql">✓ in awesome-quant · Trading &amp; Backtesting</span>
+        <div class="links"><a href="https://github.com/holdout-labs/lesson-book" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/lesson-book/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">⚖️</span><h3>holdout-governance</h3></div>
+        <span class="cli">gov · pip install holdout-governance</span>
+        <p>Fail-closed governance for AI research artifacts: policy.yml + artifact.json, one check before anything ships. Ships as CLI, reusable GitHub Action, pre-commit hook and MCP server.</p>
+        <span class="aql">★ Glama A-grade · MCP directory</span>
+        <div class="links"><a href="https://github.com/holdout-labs/holdout-governance" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/holdout-governance/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">🧰</span><h3>pypi-verify-action</h3></div>
+        <span class="cli">uses: holdout-labs/pypi-verify-action@v1</span>
+        <p>GitHub Action that verifies a freshly published PyPI release end-to-end: wait for propagation, clean-venv install, version assert, file checks, smoke commands. Fail-closed.</p>
+        <div class="links"><a href="https://github.com/holdout-labs/pypi-verify-action" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+      <div class="card">
+        <div class="head"><span class="ico">♻️</span><h3>workspace-metabolism</h3></div>
+        <span class="cli">wm · sister project (metabolism-tools)</span>
+        <p>Policy-driven governance for what AI coding agents leave in your workspace: one metabolism.json policy file, audit, recyclable clean, rollback, hash-chained audit trail. MCP server included.</p>
+        <span class="aql">★ Glama all-A ratings</span>
+        <div class="links"><a href="https://github.com/metabolism-tools/workspace-metabolism" target="_blank" rel="noopener">GitHub ↗</a><a href="https://pypi.org/project/workspace-metabolism/" target="_blank" rel="noopener">PyPI ↗</a></div>
+      </div>
     </div>
-    <div class="card">
-      <h3>ashare-data-immunity</h3>
-      <div class="cli">imm · pip install ashare-data-immunity</div>
-      <p>A-share daily-bar data immunity: cleaning, board-aware price limits (ST date-aware), suspensions, delisting/survivorship audits, SHA-256 snapshots and evidence-tracked repair. <strong>Listed in awesome-quant</strong> (Market Data).</p>
-      <div class="links"><a href="https://github.com/holdout-labs/ashare-data-immunity">GitHub</a><a href="https://pypi.org/project/ashare-data-immunity/">PyPI</a></div>
-    </div>
-    <div class="card">
-      <h3>pit-adjuster</h3>
-      <div class="cli">padj · pip install pit-adjuster</div>
-      <p>Point-in-time fixed-basis back-adjustment for A-share prices: corporate-action factor chains, convention-drift detection, snapshot-equivalence gates. <strong>Listed in awesome-quant</strong> (Market Data).</p>
-      <div class="links"><a href="https://github.com/holdout-labs/pit-adjuster">GitHub</a><a href="https://pypi.org/project/pit-adjuster/">PyPI</a></div>
-    </div>
-    <div class="card">
-      <h3>lookahead-free</h3>
-      <div class="cli">lf · pip install lookahead-free</div>
-      <p>Verifiable look-ahead freedom for the value-independent fragment of data pipelines, with a heuristic companion scanner for research code. <strong>Listed in awesome-quant</strong> (Factor Analysis).</p>
-      <div class="links"><a href="https://github.com/holdout-labs/lookahead-free">GitHub</a><a href="https://pypi.org/project/lookahead-free/">PyPI</a></div>
-    </div>
-    <div class="card">
-      <h3>factor-qc</h3>
-      <div class="cli">qc · pip install factor-qc</div>
-      <p>Fail-closed quality gate for backtests and factor evidence: DSR / PBO / haircut / MinTRL, plus a probability-calibration companion gate. Refuses to judge without an honest n_trials. <strong>Listed in awesome-quant</strong> (Factor Analysis).</p>
-      <div class="links"><a href="https://github.com/holdout-labs/factor-qc">GitHub</a><a href="https://pypi.org/project/factor-qc/">PyPI</a></div>
-    </div>
-    <div class="card">
-      <h3>lesson-book</h3>
-      <div class="cli">lb · pip install lesson-book</div>
-      <p>Local-first, deterministic tuition memory for traders: pattern-matched reminders, no LLM, overridable rule tables.</p>
-      <div class="links"><a href="https://github.com/holdout-labs/lesson-book">GitHub</a><a href="https://pypi.org/project/lesson-book/">PyPI</a></div>
-    </div>
-    <div class="card">
-      <h3>holdout-governance</h3>
-      <div class="cli">gov · pip install holdout-governance</div>
-      <p>Fail-closed governance for AI research artifacts: policy.yml + artifact.json, one check before anything ships. Ships as CLI, reusable GitHub Action, pre-commit hook and MCP server. Glama A-grade.</p>
-      <div class="links"><a href="https://github.com/holdout-labs/holdout-governance">GitHub</a><a href="https://pypi.org/project/holdout-governance/">PyPI</a></div>
-    </div>
-  </div>
+  </section>
 
-  <h2>Tooling</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>pypi-verify-action</h3>
-      <div class="cli">uses: holdout-labs/pypi-verify-action@v1</div>
-      <p>GitHub Action that verifies a freshly published PyPI release end-to-end: wait for propagation, clean-venv install, version assert, file checks, smoke commands. Fail-closed.</p>
-      <div class="links"><a href="https://github.com/holdout-labs/pypi-verify-action">GitHub</a></div>
-    </div>
-    <div class="card">
-      <h3>workspace-metabolism</h3>
-      <div class="cli">wm · sister project (metabolism-tools)</div>
-      <p>Policy-driven governance for what AI coding agents leave in your workspace: one metabolism.json policy file, audit, recyclable clean, rollback, hash-chained audit trail. MCP server included.</p>
-      <div class="links"><a href="https://github.com/metabolism-tools/workspace-metabolism">GitHub</a><a href="https://pypi.org/project/workspace-metabolism/">PyPI</a></div>
-    </div>
-  </div>
-
-  <h2>Try it in 60 seconds</h2>
-  <pre>pip install falsification-ledger
+  <section id="try">
+    <h2><span class="no">03</span> Try it in 60 seconds</h2>
+    <pre><span class="c"># the whole loop in one command — pre-register, evidence, verdict, hit rate,</span>
+<span class="c"># then watch `fl verify` catch a tamper at a specific line number:</span>
+pip install falsification-ledger
 fl demo</pre>
-  <p><code>fl demo</code> runs the whole loop on a scratch ledger — pre-register, evidence, verdict, hit rate — then tampers with one field so you can watch <code>fl verify</code> catch it at a specific line number.</p>
+    <p class="lead" style="margin-top:.8rem"><code>fl demo</code> runs the whole loop on a scratch ledger, then deliberately tampers with one field so you can watch <code>fl verify</code> catch it — about 60 seconds from install to "this is why the hash chain matters".</p>
+  </section>
 
-  <h2>Philosophy</h2>
-  <p>Feynman's first principle: <em>"You must not fool yourself — and you are the easiest person to fool."</em> The statistics literature (deflated Sharpe, PBO, multiple-testing corrections) attacks the <em>math</em> of self-deception. Holdout attacks the <em>process</em>: pre-registration, fail-closed gates, and tamper-evident audit trails make honesty cheaper than rationalization. Named after the holdout — the data you don't touch until the end, and the juror who won't go along until the evidence is in.</p>
+  <section>
+    <h2><span class="no">04</span> Philosophy</h2>
+    <blockquote>"The first principle is that you must not fool yourself — and you are the easiest person to fool." — Richard Feynman</blockquote>
+    <p class="lead" style="margin-top:1rem">The statistics literature (deflated Sharpe, PBO, multiple-testing corrections) attacks the <em>math</em> of self-deception. Holdout Labs attacks the <em>process</em>: pre-registration, fail-closed gates, and tamper-evident audit trails make honesty cheaper than rationalization. Named after the holdout — the data you don't touch until the end, and the juror who won't go along until the evidence is in.</p>
+  </section>
 
-  <h2>Install everything</h2>
-  <pre>pip install falsification-ledger pit-adjuster factor-qc lookahead-free ashare-data-immunity lesson-book holdout-governance</pre>
-  <p>All MIT-licensed. No investment advice, no trade execution, no return promises — only evidence and gates.</p>
+  <section>
+    <h2><span class="no">05</span> Install everything</h2>
+    <pre>pip install falsification-ledger pit-adjuster factor-qc lookahead-free ashare-data-immunity lesson-book holdout-governance</pre>
+    <p class="lead" style="margin-top:.8rem">All MIT-licensed, Python 3.11+. No investment advice, no trade execution, no return promises — only evidence and gates.</p>
+  </section>
 </main>
+
 <footer>
-  <a href="https://github.com/holdout-labs">github.com/holdout-labs</a> · 7 MIT-licensed tools · Python 3.11+<br>
-  Sister org: <a href="https://github.com/metabolism-tools">metabolism-tools</a> (workspace-metabolism)<br>
-  <span style="opacity:.7">Research &amp; engineering infrastructure — not investment advice.</span>
+  <div class="f-links">
+    <a href="https://github.com/holdout-labs" target="_blank" rel="noopener">github.com/holdout-labs</a>
+    <a href="https://github.com/wilsonfreitas/awesome-quant" target="_blank" rel="noopener">awesome-quant</a>
+    <a href="https://github.com/metabolism-tools" target="_blank" rel="noopener">metabolism-tools (sister org)</a>
+  </div>
+  <div>7 MIT-licensed tools · Python 3.11+ · Research &amp; engineering infrastructure — not investment advice.</div>
 </footer>
 </body>
 </html>
