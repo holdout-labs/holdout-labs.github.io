@@ -31,6 +31,9 @@
   .card .links a { margin-right: .9rem; font-size: .88rem; }
   pre { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; padding: .9rem 1.1rem; overflow-x: auto; font-size: .88rem; }
   @media (prefers-color-scheme: dark) { pre { background: #161b22; border-color: #30363d; } }
+  .recognition { margin: 1.4rem auto 0; max-width: 720px; padding: .6rem 1rem; border: 1px solid #d4a72c; border-radius: 8px; background: #fff8e1; font-size: .95rem; }
+  @media (prefers-color-scheme: dark) { .recognition { border-color: #9e8a3a; background: #2d2817; } }
+  .recognition a { font-weight: 600; }
   footer { text-align: center; padding: 2rem 1rem 3rem; color: #6e7781; font-size: .85rem; border-top: 1px solid #d0d7de; }
   @media (prefers-color-scheme: dark) { footer { color: #8b949e; border-top-color: #30363d; } }
   a { color: #0969da; text-decoration: none; }
@@ -44,8 +47,13 @@
   <p class="zh">让量化研究者与金融 AI 智能体无法自欺：每个结论都必须携带证据、通过门禁、留下防篡改审计痕迹，否则不许发布。MIT 开源，全部可 pip 安装。</p>
   <div class="badges">
     <img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue">
-    <img alt="awesome-quant" src="https://img.shields.io/badge/awesome--quant-listed-1f6feb">
+    <img alt="awesome-quant" src="https://img.shields.io/badge/awesome--quant-6%2F7%20tools-1f6feb">
     <img alt="PyPI" src="https://img.shields.io/pypi/v/falsification-ledger">
+  </div>
+  <div class="recognition">
+    ⭐ <strong>6 of 7 tools listed in <a href="https://github.com/wilsonfreitas/awesome-quant">awesome-quant</a></strong>
+    — the curated list of quant libraries (~29k stars): falsification-ledger · pit-adjuster · factor-qc ·
+    lookahead-free · ashare-data-immunity · lesson-book (merged 2026-09-06).
   </div>
 </header>
 <main>
@@ -66,25 +74,25 @@
     <div class="card">
       <h3>ashare-data-immunity</h3>
       <div class="cli">imm · pip install ashare-data-immunity</div>
-      <p>A-share daily-bar data immunity: cleaning, board-aware price limits (ST date-aware), suspensions, delisting/survivorship audits, SHA-256 snapshots and evidence-tracked repair.</p>
+      <p>A-share daily-bar data immunity: cleaning, board-aware price limits (ST date-aware), suspensions, delisting/survivorship audits, SHA-256 snapshots and evidence-tracked repair. <strong>Listed in awesome-quant</strong> (Market Data).</p>
       <div class="links"><a href="https://github.com/holdout-labs/ashare-data-immunity">GitHub</a><a href="https://pypi.org/project/ashare-data-immunity/">PyPI</a></div>
     </div>
     <div class="card">
       <h3>pit-adjuster</h3>
       <div class="cli">padj · pip install pit-adjuster</div>
-      <p>Point-in-time fixed-basis back-adjustment for A-share prices: corporate-action factor chains, convention-drift detection, snapshot-equivalence gates.</p>
+      <p>Point-in-time fixed-basis back-adjustment for A-share prices: corporate-action factor chains, convention-drift detection, snapshot-equivalence gates. <strong>Listed in awesome-quant</strong> (Market Data).</p>
       <div class="links"><a href="https://github.com/holdout-labs/pit-adjuster">GitHub</a><a href="https://pypi.org/project/pit-adjuster/">PyPI</a></div>
     </div>
     <div class="card">
       <h3>lookahead-free</h3>
       <div class="cli">lf · pip install lookahead-free</div>
-      <p>Verifiable look-ahead freedom for the value-independent fragment of data pipelines, with a heuristic companion scanner for research code.</p>
+      <p>Verifiable look-ahead freedom for the value-independent fragment of data pipelines, with a heuristic companion scanner for research code. <strong>Listed in awesome-quant</strong> (Factor Analysis).</p>
       <div class="links"><a href="https://github.com/holdout-labs/lookahead-free">GitHub</a><a href="https://pypi.org/project/lookahead-free/">PyPI</a></div>
     </div>
     <div class="card">
       <h3>factor-qc</h3>
       <div class="cli">qc · pip install factor-qc</div>
-      <p>Fail-closed quality gate for backtests and factor evidence: DSR / PBO / haircut / MinTRL, plus a probability-calibration companion gate. Refuses to judge without an honest n_trials.</p>
+      <p>Fail-closed quality gate for backtests and factor evidence: DSR / PBO / haircut / MinTRL, plus a probability-calibration companion gate. Refuses to judge without an honest n_trials. <strong>Listed in awesome-quant</strong> (Factor Analysis).</p>
       <div class="links"><a href="https://github.com/holdout-labs/factor-qc">GitHub</a><a href="https://pypi.org/project/factor-qc/">PyPI</a></div>
     </div>
     <div class="card">
