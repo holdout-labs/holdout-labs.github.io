@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Holdout — evidence gates for quant research &amp; financial AI agents</title>
-<meta name="description" content="Holdout is an open-source (MIT) governance toolchain that makes self-deception harder in quantitative research and financial AI agents: data immunity, PIT adjustment, look-ahead verification, fail-closed backtest gates, hash-chained pre-registration ledgers, and AI governance. 6 of 7 tools listed in awesome-quant.">
+<title>Holdout — infrastructure for AI-assisted quant research</title>
+<meta name="description" content="Holdout is open-source infrastructure for AI-assisted quantitative research: evidence gates, operating guardrails, reproducible checks, and release review for financial AI agents. 6 of 7 tools listed in awesome-quant.">
 <style>
   :root {
     --bg: #f7f8fa; --fg: #1a2332; --muted: #5b6b7f; --card: #ffffff;
@@ -105,8 +105,8 @@
 
 <header class="hero">
   <h1>Holdout</h1>
-  <p class="tagline">An open-source evidence gate that makes self-deception harder in quantitative research — for humans and financial AI agents.</p>
-  <p class="zh">让量化研究者与金融 AI 智能体更难自欺：每个结论都必须携带证据、通过门禁、留下防篡改审计痕迹，否则不许发布。MIT 开源，全部可 pip 安装。</p>
+  <p class="tagline">Open-source infrastructure for AI-assisted quantitative research: evidence gates, operating guardrails, and release review for financial AI agents.</p>
+  <p class="zh">Holdout 不是常见的因子库、回测引擎或交易系统，而是 AI 做量化投研时的证据链门禁与操作护栏：证据、权限和发布都要经过可复现检查。MIT 开源，全部可 pip 安装。</p>
   <div class="badges">
     <img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue">
     <img alt="awesome-quant" src="https://img.shields.io/badge/awesome--quant-6%2F7%20tools-1f6feb">
@@ -132,6 +132,7 @@
     </div>
     <p class="lead" style="margin-top:1rem">Every artifact — a human conclusion, an AI-generated strategy claim, a piece of public copy — walks the same chain and answers the same question: <em>can this be published, and if not, what is missing?</em> All tools output machine-readable JSON + exit codes, are fail-closed by default, and can be called by agents and CI.</p>
     <p class="lead">For agents, Holdout is a boundary layer: the agent may propose, run checks, and attach evidence, but missing evidence blocks release by default, and final publication or trading authority stays outside the agent.</p>
+    <p class="lead">That is the unusual angle: most quant stacks focus on signal discovery, backtesting, portfolio construction, or execution. Holdout focuses on the research artifact around those steps: what the agent used, what changed, what evidence exists, what failed, and who approved the result.</p>
   </section>
 
   <section id="tools">
